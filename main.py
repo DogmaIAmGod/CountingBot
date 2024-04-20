@@ -6,6 +6,7 @@ from responses import get_response
 from leaderboard import display_leaderboard
 from botMath import getMath
 from getQuotes import getRandomQuote
+from commands import createCommands
 
 load_dotenv()
 TOKEN: Final[str] = os.getenv('DISCORD_TOKEN')
@@ -17,12 +18,15 @@ client: Client = Client(intents=intents)
 
 async def send_message(message: Message, user_message: str) -> None:
     if not user_message:
-        print('Message was empty because intents were not enabled')
+        # print('Message was empty because intents were not enabled')
         return
 
     if is_private := user_message[0] == '?':
         user_message = user_message[1:]
     try:
+        if user_message == '++commands':
+            response = createCommands()
+            await message.author.send(response) if is_private else await message.channel.send(response)
         if user_message == '++leaderboard':
             response = display_leaderboard(user_message)
             await message.author.send(response) if is_private else await message.channel.send(response)

@@ -15,4 +15,5 @@ def create_leaderboard_message() -> str:
     for name, number, userid in sorted_data[:10]:
         count += 1
         return_words += f"#{count}: <@{userid}> with {number} sorries\n"
+        # return_words += f"#{count}: {name} with {number} sorries\n"
     return return_words

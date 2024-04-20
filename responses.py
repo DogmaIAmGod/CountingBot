@@ -58,7 +58,7 @@ def write_to_file(content, userid):
                 found = True
                 parts[1] = str(int(parts[1]) + 1)
                 parts[2] = str(int(userid))
-                file.write(' '.join(parts) + '\n')
+
             else:
                 file.write(line)
         if not found:
@@ -67,9 +67,13 @@ def write_to_file(content, userid):
 
 
 def record_sorry(content, username):
-    parts = []
     with open("sorries.txt", 'r+') as file:
-        parts.append(time.asctime() + ' -')
-        parts.append(username + ":")
-        parts.append('"' + content + '"')
-        file.write(' '.join(parts) + '\n')
+        lines = file.readlines()
+        file.seek(0)
+        parts = [time.asctime() + ' -', username + ":", '"' + content + '"']
+        newString = ' '.join(parts) + '\n'
+        lines.append(newString)
+        for line in lines:
+            file.write(line)
+        file.truncate()
+        print(lines)

@@ -1,5 +1,6 @@
 import re
 import unicodedata
+import time
 from unidecode import unidecode
 
 
@@ -13,6 +14,8 @@ def get_response(user_input: str, username: str, userid: int) -> str:
     lowered = replace_repeated_letters(lowered)
 
     if find_sorry(lowered):
+        print(username + ' "' + user_input + '" ' + time.asctime())
+        record_sorry(user_input, username)
         write_to_file(username, userid)
         returnString: str = (username + ' SAID SORRY')
         return returnString
@@ -55,9 +58,22 @@ def write_to_file(content, userid):
                 found = True
                 parts[1] = str(int(parts[1]) + 1)
                 parts[2] = str(int(userid))
-                file.write(' '.join(parts) + '\n')
+
             else:
                 file.write(line)
         if not found:
             file.write(content + " 1 " + str(userid) + "\n")
         file.truncate()
+
+
+def record_sorry(content, username):
+    with open("sorries.txt", 'r+') as file:
+        lines = file.readlines()
+        file.seek(0)
+        parts = [time.asctime() + ' -', username + ":", '"' + content + '"']
+        newString = ' '.join(parts) + '\n'
+        lines.append(newString)
+        for line in lines:
+            file.write(line)
+        file.truncate()
+        print(lines)

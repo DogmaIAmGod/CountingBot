@@ -14,7 +14,6 @@ def get_response(user_input: str, username: str, userid: int) -> str:
     lowered = replace_repeated_letters(lowered)
 
     if find_sorry(lowered):
-        print(username + ' "' + user_input + '" ' + time.asctime())
         record_sorry(user_input, username)
         write_to_file(username, userid)
         returnString: str = (username + ' SAID SORRY')
@@ -58,7 +57,7 @@ def write_to_file(content, userid):
                 found = True
                 parts[1] = str(int(parts[1]) + 1)
                 parts[2] = str(int(userid))
-
+                file.write(' '.join(parts) + '\n')
             else:
                 file.write(line)
         if not found:
@@ -67,6 +66,7 @@ def write_to_file(content, userid):
 
 
 def record_sorry(content, username):
+    print('here')
     with open("sorries.txt", 'r+') as file:
         lines = file.readlines()
         file.seek(0)
@@ -76,4 +76,3 @@ def record_sorry(content, username):
         for line in lines:
             file.write(line)
         file.truncate()
-        print(lines)

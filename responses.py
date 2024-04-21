@@ -70,9 +70,7 @@ def record_sorry(content, username):
     with open("sorries.txt", 'r+') as file:
         lines = file.readlines()
         file.seek(0)
-        parts = [time.asctime() + ' -', username + ":", '"' + content + '"']
-        newString = ' '.join(parts) + '\n'
-        lines.append(newString)
+        lines.append(' '.join([time.asctime() + ' -', username + ":", '"' + content + '"']) + '\n')
         for line in lines:
             file.write(line)
         file.truncate()

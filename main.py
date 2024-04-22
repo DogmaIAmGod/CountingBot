@@ -1,12 +1,13 @@
-from typing import Final
 import os
+from botMath import getMath
+from commands import createCommands
 from dotenv import load_dotenv
 from discord import Intents, Client, Message
-from responses import get_response
-from leaderboard import display_leaderboard
-from botMath import getMath
 from getQuotes import getRandomQuote
-from commands import createCommands
+from leaderboard import display_leaderboard
+from responses import get_response
+from typing import Final
+
 
 load_dotenv()
 TOKEN: Final[str] = os.getenv('DISCORD_TOKEN')

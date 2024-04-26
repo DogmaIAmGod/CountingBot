@@ -38,7 +38,9 @@ async def send_message(message: Message, user_message: str) -> None:
         if user_message == '++magic':
             response = getRandomQuote()
             await message.author.send(response) if is_private else await message.channel.send(response)
-
+        if user_message == '++love':
+            response = 'You are loved.'
+            await message.author.send(response) if is_private else await message.channel.send(response)
         else:
             user: str = str(message.author).upper()
             get_response(user_message, user, message.author.id)

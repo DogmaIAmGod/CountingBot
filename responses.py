@@ -66,11 +66,11 @@ def write_to_file(content, userid):
 
 
 def record_sorry(content, username):
-    print('here')
     with open("sorries.txt", 'r+') as file:
         lines = file.readlines()
         file.seek(0)
         lines.append(' '.join([time.asctime() + ' -', username + ":", '"' + content + '"']) + '\n')
+
         for line in lines:
             file.write(line)
         file.truncate()

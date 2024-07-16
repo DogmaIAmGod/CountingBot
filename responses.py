@@ -43,6 +43,7 @@ def replace_single(string):
     string = string.replace("$", "s")
     string = string.replace("!", "i")
     string = string.replace("1", "i")
+    string = string.replace("5", "s")
     return string
 
 
